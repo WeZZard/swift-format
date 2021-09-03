@@ -38,7 +38,43 @@ class LintOrFormatRuleTestCase: DiagnosingTestCase {
     let linter = type.init(context: context)
     linter.walk(sourceFileSyntax)
   }
+  
+  /// Performs a lint using the provided linter rule on the provided input.
+  ///
+  /// - Parameters:
+  ///   - type: The metatype of the lint rule you wish to perform.
+  ///   - configuration: The base configuration.
+  ///   - input: The input code.
+  ///   - file: The file the test resides in (defaults to the current caller's file)
+  ///   - line:  The line the test resides in (defaults to the current caller's line)
+  final func performLint<LintRule: SyntaxLintRule>(
+    _ type: LintRule.Type,
+    configuration: Configuration,
+    input: String,
+    file: StaticString = #file,
+    line: UInt = #line
+  ) {
+    let sourceFileSyntax: SourceFileSyntax
+    do {
+      sourceFileSyntax = try SyntaxParser.parse(source: input)
+    } catch {
+      XCTFail("\(error)", file: file, line: line)
+      return
+    }
 
+    // Force the rule to be enabled while we test it.
+    var finalConfiguration = configuration
+    finalConfiguration.rules[type.ruleName] = true
+    let context = makeContext(sourceFileSyntax: sourceFileSyntax, configuration: finalConfiguration)
+
+    // If we're linting, then indicate that we want to fail for unasserted diagnostics when the test
+    // is torn down.
+    shouldCheckForUnassertedDiagnostics = true
+
+    let linter = type.init(context: context)
+    linter.walk(sourceFileSyntax)
+  }
+  
   /// Asserts that the result of applying a formatter to the provided input code yields the output.
   ///
   /// This method should be called by each test of each rule.

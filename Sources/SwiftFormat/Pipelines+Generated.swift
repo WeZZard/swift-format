@@ -49,6 +49,7 @@ class LintPipeline: SyntaxVisitor {
     visitIfEnabled(AlwaysUseLowerCamelCase.visit, for: node)
     visitIfEnabled(BeginDocumentationCommentWithOneLineSummary.visit, for: node)
     visitIfEnabled(DontRepeatTypeInStaticProperties.visit, for: node)
+    visitIfEnabled(ForbidsImplicitReturnOutsideResultBuilder.visit, for: node)
     visitIfEnabled(NoLeadingUnderscores.visit, for: node)
     visitIfEnabled(UseTripleSlashForDocumentationComments.visit, for: node)
     return .visitChildren
@@ -92,6 +93,7 @@ class LintPipeline: SyntaxVisitor {
   override func visit(_ node: EnumDeclSyntax) -> SyntaxVisitorContinueKind {
     visitIfEnabled(BeginDocumentationCommentWithOneLineSummary.visit, for: node)
     visitIfEnabled(DontRepeatTypeInStaticProperties.visit, for: node)
+    visitIfEnabled(ForbidsImplicitReturnOutsideResultBuilder.visit, for: node)
     visitIfEnabled(FullyIndirectEnum.visit, for: node)
     visitIfEnabled(NoLeadingUnderscores.visit, for: node)
     visitIfEnabled(OneCasePerLine.visit, for: node)
@@ -121,6 +123,7 @@ class LintPipeline: SyntaxVisitor {
     visitIfEnabled(AllPublicDeclarationsHaveDocumentation.visit, for: node)
     visitIfEnabled(AlwaysUseLowerCamelCase.visit, for: node)
     visitIfEnabled(BeginDocumentationCommentWithOneLineSummary.visit, for: node)
+    visitIfEnabled(ForbidsImplicitReturnOutsideResultBuilder.visit, for: node)
     visitIfEnabled(NoLeadingUnderscores.visit, for: node)
     visitIfEnabled(UseTripleSlashForDocumentationComments.visit, for: node)
     visitIfEnabled(ValidateDocumentationComments.visit, for: node)
@@ -235,6 +238,7 @@ class LintPipeline: SyntaxVisitor {
     visitIfEnabled(AllPublicDeclarationsHaveDocumentation.visit, for: node)
     visitIfEnabled(BeginDocumentationCommentWithOneLineSummary.visit, for: node)
     visitIfEnabled(DontRepeatTypeInStaticProperties.visit, for: node)
+    visitIfEnabled(ForbidsImplicitReturnOutsideResultBuilder.visit, for: node)
     visitIfEnabled(NoLeadingUnderscores.visit, for: node)
     visitIfEnabled(UseSynthesizedInitializer.visit, for: node)
     visitIfEnabled(UseTripleSlashForDocumentationComments.visit, for: node)

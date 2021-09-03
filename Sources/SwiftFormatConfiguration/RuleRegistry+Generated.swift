@@ -21,6 +21,7 @@ enum RuleRegistry {
     "DoNotUseSemicolons": true,
     "DontRepeatTypeInStaticProperties": true,
     "FileScopedDeclarationPrivacy": true,
+    "ForbidsImplicitReturnOutsideResultBuilder": true,
     "FullyIndirectEnum": true,
     "GroupNumericLiterals": true,
     "IdentifiersMustBeASCII": true,

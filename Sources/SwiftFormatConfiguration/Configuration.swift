@@ -35,6 +35,7 @@ public struct Configuration: Codable, Equatable {
     case fileScopedDeclarationPrivacy
     case indentSwitchCaseLabels
     case rules
+    case functionBuilders
   }
 
   /// The version of this configuration.
@@ -141,6 +142,8 @@ public struct Configuration: Codable, Equatable {
   /// }
   ///```
   public var indentSwitchCaseLabels = false
+  
+  public var functionBuilders: [String] = []
 
   /// Constructs a Configuration with all default values.
   public init() {
@@ -207,6 +210,9 @@ public struct Configuration: Codable, Equatable {
     // set the `rules` key to `{}`.
     self.rules
       = try container.decodeIfPresent([String: Bool].self, forKey: .rules) ?? RuleRegistry.rules
+    
+    self.functionBuilders
+      = try container.decodeIfPresent([String].self, forKey: .functionBuilders) ?? []
   }
 
   public func encode(to encoder: Encoder) throws {
@@ -229,6 +235,7 @@ public struct Configuration: Codable, Equatable {
     try container.encode(fileScopedDeclarationPrivacy, forKey: .fileScopedDeclarationPrivacy)
     try container.encode(indentSwitchCaseLabels, forKey: .indentSwitchCaseLabels)
     try container.encode(rules, forKey: .rules)
+    try container.encode(functionBuilders, forKey: .functionBuilders)
   }
 
   /// Returns the URL of the configuration file that applies to the given file or directory.
